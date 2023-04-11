@@ -32,7 +32,7 @@ public:
 		return DataCount >= size;
 	}
 
-	size_t GetSize() { return size; }
+	size_t GetSize() const { return size; }
 	
 	virtual TKey GetKey(Position pos) const;
 	virtual TKey GetKey() const { return GetKey(Position::CURRENT); }
@@ -72,4 +72,6 @@ public:
 	{
 		return curPos;
 	}
+
+	friend class TSortTable;
 };

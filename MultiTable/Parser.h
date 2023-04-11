@@ -15,7 +15,7 @@ private:
 	std::ifstream _fin;
 	
 public:
-	Parser() :_path("War-N-Peace-Full.txt") 
+	Parser() :_path("ho.txt") // "War-N-Peace-Full.txt"
 	{
 		_fin.open(_path);
 		if (!_fin.is_open())
@@ -30,6 +30,7 @@ public:
 
 	void TScanTableInsert(TScanTable& st) {
 		std::string str;
+		
 		while (!_fin.eof())
 		{
 			str = "";
@@ -55,13 +56,10 @@ public:
 
 	int WordInPart(const std::string toFind, int part)
 	{
-		std::string str;
+		std::string str = "";
 		part++;
 		const std::string partName = "Том " + std::to_string(part);
 		int count = 0;
-		while (_fin.eof())
-		{
-			str = "";
 			_fin >> str;
 			if (str == toFind)
 				count++;
