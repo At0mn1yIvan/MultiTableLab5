@@ -3,6 +3,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <thread>
+#include <mutex>
+#include <vector>
 
 
 #include "TScanTable.h"
@@ -13,67 +16,156 @@ class Parser
 private:
 	std::string _path;
 	std::ifstream _fin;
-	
+	//std::string _strFile;
+	int _numOfWords; // число слов в файле
+	TTable* _table;
+	std::vector<std::pair<std::string, int*>> _attrVector;
+
 public:
-	Parser() :_path("ho.txt") // "War-N-Peace-Full.txt"
+	Parser(TTable* table) :_path("ho.txt"), _numOfWords(0), _table(table) // "War-N-Peace-Full.txt" _strFile(""),
 	{
+		//std::string str;
 		_fin.open(_path);
 		if (!_fin.is_open())
 		{
 			throw "Cannot open the file.";
 		}
-	}
-
-	~Parser() {
-		_fin.close();
-	}
-
-	void TScanTableInsert(TScanTable& st) {
-		std::string str;
-		
-		while (!_fin.eof())
+		/*while (!_fin.eof())
 		{
 			str = "";
 			_fin >> str;
-			st.InsertRecord(str, new Statistic(this->WordAllTimes(str), this->WordInPart(str, 1), this->WordInPart(str, 2), this->WordInPart(str, 3), this->WordInPart(str, 4)));
+			_numOfWords++;
 		}
+		_fin.close();*/
+
 	}
 
 
-	int WordAllTimes(const std::string toFind)  // Во всем произв.
+	// Геттеры
+	//std::string GetStrFile() const { return _strFile; }
+	int GetNumOfWords() const { return _numOfWords; }
+
+
+
+	// Вариант 1
+	void TableInsert()
 	{
-		std::string str;
-		int count = 0;
-		while (!_fin.eof())
-		{	
-			str = "";
-			_fin >> str;
-			if (str == toFind)
-				count++;
+		std::string tmp = "";
+		
+		int partNum = 0;
+		
+		bool vectorIsNull = true;
+		bool newInVect = true;
+		//_fin.open(_path);
+		while (!_fin.eof()) 
+		//for (int i = 0; i < 187; i++) // 472726 - независимости
+		{
+			int attr[5] = { 0 };
+
+			newInVect = true;
+			tmp = "";
+			_fin >> tmp;
+			if (tmp == "") break;
+					
+			std::cout << ++_numOfWords << std::endl;
+
+
+			if (!ClearWord(tmp)) continue;
+				
+
+			if (tmp == "Том")
+				partNum++;
+
+			if (_attrVector.size() == 0)
+			{
+				attr[0]++;
+
+				int attrTmp[5] = { 0 };
+				_attrVector.push_back(std::pair<std::string, int*>(tmp, attr));
+				vectorIsNull = false;
+			}
+			else
+			{
+				for (int i = 0; i < _attrVector.size(); i++)
+				{
+					if (tmp == _attrVector[i].first)
+					{
+						newInVect = false;
+						_attrVector[i].second[0]++;
+						switch (partNum)
+						{
+						case 1: _attrVector[i].second[1]++; break;
+						case 2: _attrVector[i].second[2]++; break;
+						case 3: _attrVector[i].second[3]++; break;
+						case 4: _attrVector[i].second[4]++; break;
+						default: break;
+						}
+						break;
+					}
+				}
+				if (newInVect)
+				{
+					attr[0]++;
+					switch (partNum)
+					{
+					case 1: attr[1]++; break;
+					case 2: attr[2]++; break;
+					case 3: attr[3]++; break;
+					case 4: attr[4]++; break;
+					default: break;
+					}
+					_attrVector.push_back(std::pair<std::string, int*>(tmp, attr));
+				}
+			}
 		}
-		return count;
+		_fin.close();
+		for (int i = 0; i < _attrVector.size(); i++)
+		{
+			_table->InsertRecord(_attrVector[i].first, new Statistic(_attrVector[i].second));
+		}
 	}
 
-	int WordInPart(const std::string toFind, int part)
+
+	int ClearWord(std::string& word)
 	{
-		std::string str = "";
-		part++;
-		const std::string partName = "Том " + std::to_string(part);
-		int count = 0;
-			_fin >> str;
-			if (str == toFind)
-				count++;
-			std::getline(_fin, str);
-			if (str == partName)
-				return count;
+		bool flag1;
+		bool flag2;
+		std::vector<char> symb = { '!', '"', '`', '(', ')', ',', '.', '-', '/', ':', ';', '<', '>', '?', '=', '_', '[', ']', '{', '}', '*', '\''};
+		
+		if (word.size() == 1)
+			return 1;
+
+
+		while (!((57 >= word[0] && word[0] >= 48) || (90 >= word[0] && word[0] >= 65) || (122 >= word[0] && word[0] >= 97) || ( 0 > word[0])) || !((57 >= word[word.size() - 1] && word[word.size() - 1] >= 48) || (90 >= word[word.size() - 1] && word[word.size() - 1] >= 65) || (122 >= word[word.size() - 1] && word[word.size() - 1] >= 97) || ( 0 > word[word.size() - 1])))
+		{
+			flag1 = false;
+			flag2 = false;
+			for (int i = 0; i < symb.size(); i++)
+			{
+				if (!flag1)
+					if (word[0] == symb[i])
+					{
+						if (word.size() == 1)
+							return 0;
+						word.replace(0, 1, "");
+						flag1 = true;
+					}
+				if (!flag2)
+					if (word[word.size() - 1] == symb[i])
+					{
+						if (word.size() == 1)
+							return 0;
+						word.replace(word.size() - 1, 1, "");
+						flag2 = true;
+					}
+				if (flag1 && flag2)
+					break;
+			}
 		}
-		return count;
+		return 1;
+
+
 	}
-
-	
-
-	
-
 
 };
 

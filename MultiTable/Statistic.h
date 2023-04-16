@@ -16,6 +16,11 @@ public:
 		_stats[4] = s5;
 	}
 
+	Statistic(int* stats){
+		for (int i = 0; i < 5; i++)
+			_stats[i] = stats[i];
+	}
+
 
 	void Print(std::ostream& os) override // const
 	{
@@ -30,5 +35,6 @@ public:
 	}
 
 	friend class Parser;
+	friend class ThParser;
 };
 

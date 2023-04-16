@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,7 +133,7 @@
     <ClInclude Include="TArrayTable.h" />
     <ClInclude Include="TDatCom.h" />
     <ClInclude Include="TDatValue.h" />
-    <ClInclude Include="TMarks.h" />
+    <ClInclude Include="ThParser.h" />
     <ClInclude Include="TScanTable.h" />
     <ClInclude Include="TSortTable.h" />
     <ClInclude Include="TTable.h" />
@@ -143,7 +144,7 @@
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Statistic.cpp" />
     <ClCompile Include="TArrayTable.cpp" />
-    <ClCompile Include="TMarks.cpp" />
+    <ClCompile Include="ThParser.cpp" />
     <ClCompile Include="TScanTable.cpp" />
     <ClCompile Include="TSortTable.cpp" />
   </ItemGroup>

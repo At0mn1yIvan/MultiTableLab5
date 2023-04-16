@@ -15,7 +15,7 @@ protected:
 	size_t Efficiency; // Ёффективность
 public:
 	TTable() : DataCount(0), Efficiency(0) {}
-	~TTable() {} // убрали virtual, и на что это повли€ет?
+	virtual ~TTable() {} // убрали virtual, и на что это повли€ет?
 	size_t GetDataCount() const { return DataCount; }
 	size_t GetEfficiency() const { return Efficiency; }
 
@@ -33,10 +33,11 @@ public:
 	virtual TKey GetKey() const = 0;
 	virtual PTDatValue GetValuePTR() const = 0;
 
+
 	friend std::ostream& operator<<(std::ostream& out, TTable& table) {
 		for (table.Reset(); !table.IsTabEnded(); table.GoNext())
 		{
-			out << "Key: " << table.GetKey() << " Value: " << *table.GetValuePTR() << std::endl;
+			out << "Key: " << table.GetKey() << "\t\t\tValue: " << *table.GetValuePTR() << std::endl;
 		}
 		return out;
 	}
