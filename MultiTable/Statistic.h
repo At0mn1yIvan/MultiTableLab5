@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "TDatValue.h"
 
 class Statistic : public TDatValue
@@ -21,6 +23,10 @@ public:
 			_stats[i] = stats[i];
 	}
 
+	Statistic(std::vector<int> v) {
+		for (int i = 0; i < 5; i++)
+			_stats[i] = v[i];
+	}
 
 	void Print(std::ostream& os) override // const
 	{

@@ -37,7 +37,7 @@ public:
 	friend std::ostream& operator<<(std::ostream& out, TTable& table) {
 		for (table.Reset(); !table.IsTabEnded(); table.GoNext())
 		{
-			out << "Key: " << table.GetKey() << "\t\t\tValue: " << *table.GetValuePTR() << std::endl;
+			out << "Key: " << table.GetKey() << "\t\t\t Value: " << *table.GetValuePTR() << std::endl;
 		}
 		return out;
 	}

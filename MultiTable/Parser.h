@@ -19,10 +19,11 @@ private:
 	//std::string _strFile;
 	int _numOfWords; // число слов в файле
 	TTable* _table;
-	std::vector<std::pair<std::string, int*>> _attrVector;
+	//std::vector<std::pair<std::string, int*>> _attrVector;
+	std::vector<std::pair<std::string, std::vector<int>>> _attrVector;
 
 public:
-	Parser(TTable* table) :_path("ho.txt"), _numOfWords(0), _table(table) // "War-N-Peace-Full.txt" _strFile(""),
+	Parser(TTable* table) :_path("War-N-Peace-Full.txt"), _numOfWords(0), _table(table) // "War-N-Peace-Full.txt" _strFile(""),
 	{
 		//std::string str;
 		_fin.open(_path);
@@ -58,10 +59,14 @@ public:
 		bool newInVect = true;
 		//_fin.open(_path);
 		while (!_fin.eof()) 
-		//for (int i = 0; i < 187; i++) // 472726 - независимости
+		//for (int i = 0; i < 1000; i++) // 472726 - независимости
 		{
-			int attr[5] = { 0 };
-
+			//int attr[5] = { 0 };
+			int a1 = 0;
+			int a2 = 0;
+			int a3 = 0;
+			int a4 = 0;
+			int a5 = 0;
 			newInVect = true;
 			tmp = "";
 			_fin >> tmp;
@@ -78,10 +83,8 @@ public:
 
 			if (_attrVector.size() == 0)
 			{
-				attr[0]++;
-
-				int attrTmp[5] = { 0 };
-				_attrVector.push_back(std::pair<std::string, int*>(tmp, attr));
+				a1++;
+				_attrVector.push_back(std::pair<std::string, std::vector<int>>(tmp, {a1,a2,a3,a4,a5}));
 				vectorIsNull = false;
 			}
 			else
@@ -105,16 +108,16 @@ public:
 				}
 				if (newInVect)
 				{
-					attr[0]++;
+					a1++;
 					switch (partNum)
 					{
-					case 1: attr[1]++; break;
-					case 2: attr[2]++; break;
-					case 3: attr[3]++; break;
-					case 4: attr[4]++; break;
+					case 1: a2++; break;
+					case 2: a3++; break;
+					case 3: a4++; break;
+					case 4: a5++; break;
 					default: break;
 					}
-					_attrVector.push_back(std::pair<std::string, int*>(tmp, attr));
+					_attrVector.push_back(std::pair<std::string, std::vector<int>>(tmp, { a1,a2,a3,a4,a5 }));
 				}
 			}
 		}

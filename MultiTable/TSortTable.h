@@ -35,7 +35,7 @@ public:
 	TSortTable& operator=(const TScanTable& st);
 
 	virtual PTDatValue FindRecord(TKey key) override; 
-	virtual bool InsertRecord(TKey key, PTDatValue) override;
+	virtual bool InsertRecord(TKey key, PTDatValue value) override;
 	virtual void DeleteRecord(TKey key) override;
 
 	SortMeth GetSortMethod()
