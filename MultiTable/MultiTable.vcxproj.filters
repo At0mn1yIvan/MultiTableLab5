@@ -42,9 +42,6 @@
     <ClInclude Include="TSortTable.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ThParser.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="THashTable.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -66,9 +63,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="TSortTable.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="ThParser.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="THashTable.cpp">

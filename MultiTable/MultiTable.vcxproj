@@ -134,7 +134,6 @@
     <ClInclude Include="TDatCom.h" />
     <ClInclude Include="TDatValue.h" />
     <ClInclude Include="THashTable.h" />
-    <ClInclude Include="ThParser.h" />
     <ClInclude Include="TScanTable.h" />
     <ClInclude Include="TSortTable.h" />
     <ClInclude Include="TTable.h" />
@@ -146,7 +145,6 @@
     <ClCompile Include="Statistic.cpp" />
     <ClCompile Include="TArrayTable.cpp" />
     <ClCompile Include="THashTable.cpp" />
-    <ClCompile Include="ThParser.cpp" />
     <ClCompile Include="TScanTable.cpp" />
     <ClCompile Include="TSortTable.cpp" />
   </ItemGroup>

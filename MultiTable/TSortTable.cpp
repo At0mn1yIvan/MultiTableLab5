@@ -70,7 +70,7 @@ bool TSortTable::InsertRecord(TKey key, PTDatValue value)
         PTDatValue tmp = FindRecord(key);
         if (RetCode == TAB_OK)
         {
-            SetRetCode(TAB_REC_DOUBLE);
+            this->SetRetCode(TAB_REC_DOUBLE);
             return false;
         }
         else
@@ -135,7 +135,7 @@ void TSortTable::InsertSort(PTTabRecord* data, int size)
             if (data[i]->GetKey() > curElem->GetKey())
             {
                 data[j + 1] = data[j];
-                Efficiency;
+                Efficiency++; // ?
             }
             else break;
         }
@@ -206,10 +206,11 @@ void TSortTable::MergeData(PTTabRecord*& pData, PTTabRecord*& pBuf, int n1, int 
 void TSortTable::QuickSort(PTTabRecord* data, int size)
 {
     int pivot, n1, n2;
-    if (DataCount < 2) return;
-    QuickSplit(data, DataCount, pivot);
+    if (size < 2) return;
+    QuickSplit(data, size, pivot);
     n1 = pivot + 1;
-    n2 = DataCount - n1;
+    n2 = size - n1;
+    QuickSort(data, n1 - 1);
     QuickSort(data + n1, n2);
 }
 
@@ -236,4 +237,41 @@ void TSortTable::QuickSplit(PTTabRecord* data, int size, int& pivot)
     data[ind2] = ppivot;
     pivot = ind2;
     Efficiency += size;
+}
+
+void TSortTable::BubbleSort(PTTabRecord* data, int size)
+{
+    Efficiency = DataCount;
+    for (int step = 0; step < size; step++) {
+
+        for (int i = 0; i < size - step - 1; i++) {
+
+            if (data[i]->GetKey() > data[i + 1]->GetKey()) {
+
+                PTTabRecord tmp = data[i];
+                data[i] = data[i + 1];
+                data[i + 1] = tmp;
+                Efficiency++;
+            }
+        }
+    }
+}
+
+void TSortTable::FreeChoice(PTTabRecord* data, int size) // selection sort
+{
+    Efficiency = DataCount;
+    for (int step = 0; step < size - 1; step++) {
+        int min_ind = step;
+        for (int i = step + 1; i < size; i++) {
+
+           
+            if (data[i]->GetKey() < data[min_ind]->GetKey())
+                min_ind = i;
+        }
+
+        PTTabRecord tmp = data[min_ind];
+        data[min_ind] = data[step];
+        data[step] = tmp;
+        Efficiency++;
+    }
 }

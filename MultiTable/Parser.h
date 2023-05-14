@@ -19,7 +19,6 @@ private:
 	//std::string _strFile;
 	int _numOfWords; // число слов в файле
 	TTable* _table;
-	//std::vector<std::pair<std::string, int*>> _attrVector;
 	std::vector<std::pair<std::string, std::vector<int>>> _attrVector;
 
 public:
@@ -58,10 +57,9 @@ public:
 		bool vectorIsNull = true;
 		bool newInVect = true;
 		//_fin.open(_path);
-		while (!_fin.eof()) 
-		//for (int i = 0; i < 1000; i++) // 472726 - независимости
+		//while (!_fin.eof()) 
+		for (int i = 0; i < 10000; i++)
 		{
-			//int attr[5] = { 0 };
 			int a1 = 0;
 			int a2 = 0;
 			int a3 = 0;

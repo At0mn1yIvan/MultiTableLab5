@@ -9,60 +9,118 @@
 #include "TTabRecord.h"
 #include "TArrayTable.h"
 #include "TScanTable.h"
+#include "TSortTable.h"
 #include "Parser.h"
-#include "ThParser.h"
+
+
+double AnySort(TSortTable& sortT, TScanTable& scanT)
+{
+	clock_t start1 = clock();
+	sortT = scanT;
+	clock_t end1 = clock();
+	return (double)(end1 - start1) / CLOCKS_PER_SEC;
+}
 
 
 int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	
-	time_t start, end;
+	clock_t start, end;
 	
-	TScanTable st = TScanTable(480000);
+
+	// ѕросматриваемые таблицы
+
+	//TScanTable st = TScanTable(70000);
+	//Parser p(&st);
+
+	//std::cout << "¬ставка значений в таблицу:" << std::endl;
+	//time(&start);
+	//p.TableInsert();
+	//time(&end);
+	//
+	//double seconds = difftime(end, start);
+	//std::cout << st;
+	//std::cout << "¬рем€ парсинга: " << seconds << " секунд" << std::endl;
+	//std::cout << "–азмер: " << st.GetDataCount() << std::endl;
+	//while(1)
+	//{
+	//	std::string str;
+	//	std::cout << "¬ыберите слово дл€ поиска: ";
+	//	std::cin >> str;
+	//	if (st.FindRecord(str) != nullptr)
+	//	{
+	//		std::cout << "Ёффективность: " << st.GetEfficiency() << " јтрибуты: " << *st.FindRecord(str) << std::endl;
+	//		std::cout << "’отите удалить слово?: ";
+	//		std::string ans;
+	//		std::cin >> ans;
+	//		if (ans == "y")
+	//			st.DeleteRecord(str);
+	//		else
+	//			continue;
+	//	}
+	//	else
+	//	{
+	//		std::cout << "Ёффективность: " << st.GetEfficiency() << std::endl;
+	//		std::cout << "Ќет такого слова." << std::endl;
+	//	}
+	//}
+
+
+	
+	//—ортируемые таблицы
+	TSortTable bubbleSortTable = TSortTable(70000);
+	bubbleSortTable.SetSortMethod(SortMeth::BUBBLESORT);
+	TSortTable quickSortTable = TSortTable(70000);
+	quickSortTable.SetSortMethod(SortMeth::QUICKSORT);
+	TSortTable mergeSortTable = TSortTable(70000);
+	mergeSortTable.SetSortMethod(SortMeth::MERGESORT);
+	TSortTable insertSortTable = TSortTable(70000);
+	insertSortTable.SetSortMethod(SortMeth::INSERTSORT);
+	TSortTable freeSortTable = TSortTable(70000);
+	freeSortTable.SetSortMethod(SortMeth::FREECHOICE);
+
+	TScanTable st = TScanTable(70000);
 	Parser p(&st);
-
-
 	
 	std::cout << "¬ставка значений в таблицу:" << std::endl;
-	time(&start);
+	start = clock();
 	p.TableInsert();
-	time(&end);
-	
-	double seconds = difftime(end, start);
+	end = clock();
+	double seconds = (double)(end - start) / CLOCKS_PER_SEC;
 	std::cout << st;
 	std::cout << "¬рем€ парсинга: " << seconds << " секунд" << std::endl;
 	std::cout << "–азмер: " << st.GetDataCount() << std::endl;
+
+	std::cout << "—ортировка пузырьком: " << AnySort(bubbleSortTable, st) << " секунд;" << "\tЁффективность: " << bubbleSortTable.GetEfficiency() << std::endl;
+	std::cout << "—ортировка сли€нием: " << AnySort(mergeSortTable, st) << " секунд;" << "\tЁффективность: " << mergeSortTable.GetEfficiency() << std::endl;
+	std::cout << "—ортировка вставками: " << AnySort(insertSortTable, st) << " секунд;" << "\tЁффективность: " << insertSortTable.GetEfficiency() << std::endl;
+	std::cout << "Ѕыстра€ сортировка: " << AnySort(quickSortTable, st) << " секунд;" << "\tЁффективность: " << quickSortTable.GetEfficiency() << std::endl;
+	std::cout << "—ортировка выбором: " << AnySort(freeSortTable, st) << " секунд;" << "\tЁффективность: " << freeSortTable.GetEfficiency() << std::endl;
+
+
 	while(1)
 	{
 		std::string str;
 		std::cout << "¬ыберите слово дл€ поиска: ";
 		std::cin >> str;
-		if (st.FindRecord(str) != nullptr)
+		if (quickSortTable.FindRecord(str) != nullptr)
 		{
-			std::cout << "Ёффективность: " << st.GetEfficiency() << " јтрибуты: " << *st.FindRecord(str) << std::endl;
+			std::cout << "Ёффективность: " << quickSortTable.GetEfficiency() << "\nјтрибуты: " << *quickSortTable.FindRecord(str) << std::endl;
 			std::cout << "’отите удалить слово?: ";
 			std::string ans;
 			std::cin >> ans;
 			if (ans == "y")
-				st.DeleteRecord(str);
+				quickSortTable.DeleteRecord(str);
 			else
 				continue;
 		}
 		else
 		{
-			std::cout << "Ёффективность: " << st.GetEfficiency() << std::endl;
+			std::cout << "Ёффективность: " << quickSortTable.GetEfficiency() << std::endl;
 			std::cout << "Ќет такого слова." << std::endl;
 		}
-
-		
-
 	}
 
-
-	/*std::string a = "–ед.";
-	p.ClearWord(a);
-	std::cout << a;*/
-	
 	return 0;
 }
