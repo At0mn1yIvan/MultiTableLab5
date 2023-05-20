@@ -45,7 +45,20 @@ public:
 	//std::string GetStrFile() const { return _strFile; }
 	int GetNumOfWords() const { return _numOfWords; }
 
-
+	void FillTable() {
+		std::ifstream fin;
+		fin.open("Table.txt");
+		while (!fin.eof()) {
+			TKey key;
+			fin >> key;
+			if (key == "") break;
+			size_t prop[5];
+			for (int i = 0; i < 5; i++) {
+				fin >> prop[i];
+			}
+			_table->InsertRecord(key, new Statistic(prop[0], prop[1], prop[2], prop[3], prop[4]));
+		}
+	}
 
 	// Вариант 1
 	void TableInsert()
@@ -58,7 +71,7 @@ public:
 		bool newInVect = true;
 		//_fin.open(_path);
 		//while (!_fin.eof()) 
-		for (int i = 0; i < 10000; i++)
+		for (int i = 0; i < 50000; i++)
 		{
 			int a1 = 0;
 			int a2 = 0;

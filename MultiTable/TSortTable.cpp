@@ -132,7 +132,7 @@ void TSortTable::InsertSort(PTTabRecord* data, int size)
         curElem = data[i];
         for (j = i - 1; j > -1; j--)
         {
-            if (data[i]->GetKey() > curElem->GetKey())
+            if (pData[j]->GetKey() > curElem->GetKey())
             {
                 data[j + 1] = data[j];
                 Efficiency++; // ?

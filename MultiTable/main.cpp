@@ -86,18 +86,27 @@ int main() {
 	std::cout << "¬ставка значений в таблицу:" << std::endl;
 	start = clock();
 	p.TableInsert();
+	//p.FillTable();
 	end = clock();
 	double seconds = (double)(end - start) / CLOCKS_PER_SEC;
-	std::cout << st;
+	//std::cout << st;
 	std::cout << "¬рем€ парсинга: " << seconds << " секунд" << std::endl;
 	std::cout << "–азмер: " << st.GetDataCount() << std::endl;
 
+	auto func = [&]() {
+		clock_t start1 = clock();
+		insertSortTable = st;
+		clock_t end1 = clock();
+		std::cout << "—ортировка вставками: " << (double)(end1 - start1) / CLOCKS_PER_SEC << " секунд;" << "\tЁффективность: " << insertSortTable.GetEfficiency() << std::endl;
+	};
+	std::thread th(func);
+	//std::cout << "—ортировка вставками: " << AnySort(insertSortTable, st) << " секунд;" << "\tЁффективность: " << insertSortTable.GetEfficiency() << std::endl;
+
 	std::cout << "—ортировка пузырьком: " << AnySort(bubbleSortTable, st) << " секунд;" << "\tЁффективность: " << bubbleSortTable.GetEfficiency() << std::endl;
 	std::cout << "—ортировка сли€нием: " << AnySort(mergeSortTable, st) << " секунд;" << "\tЁффективность: " << mergeSortTable.GetEfficiency() << std::endl;
-	std::cout << "—ортировка вставками: " << AnySort(insertSortTable, st) << " секунд;" << "\tЁффективность: " << insertSortTable.GetEfficiency() << std::endl;
 	std::cout << "Ѕыстра€ сортировка: " << AnySort(quickSortTable, st) << " секунд;" << "\tЁффективность: " << quickSortTable.GetEfficiency() << std::endl;
 	std::cout << "—ортировка выбором: " << AnySort(freeSortTable, st) << " секунд;" << "\tЁффективность: " << freeSortTable.GetEfficiency() << std::endl;
-
+	th.join();
 
 	while(1)
 	{
