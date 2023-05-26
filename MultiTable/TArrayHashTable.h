@@ -18,7 +18,7 @@ protected:
 public:
 	TArrayHashTable(size_t size = 50, int hashStep = 7);
 	virtual ~TArrayHashTable();
-	virtual bool IsFull() const
+	virtual bool isFull() const
 	{
 		return DataCount >= tabSize;
 	}

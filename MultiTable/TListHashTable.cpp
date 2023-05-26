@@ -1,6 +1,6 @@
 #include "TListHashTable.h"
 
-TListHashTable::TListHashTable(size_t size)
+TListHashTable::TListHashTable(size_t size) : THashTable(), tabSize(size), curList(0)
 {
 	pList = new std::list<PTTabRecord>[size];
 	for (int i = 0; i < size; i++)
@@ -40,7 +40,7 @@ PTDatValue TListHashTable::FindRecord(TKey key)
 
 bool TListHashTable::InsertRecord(TKey key, PTDatValue value)
 {
-	if (IsFull())
+	if (isFull())
 	{
 		SetRetCode(TAB_FULL);
 	}

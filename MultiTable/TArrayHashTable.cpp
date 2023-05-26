@@ -1,9 +1,9 @@
 #include "TArrayHashTable.h"
 
-TArrayHashTable::TArrayHashTable(size_t size, int hStep): tabSize(size), hashStep(hStep)
+TArrayHashTable::TArrayHashTable(size_t size, int hStep): THashTable(),  tabSize(size), hashStep(hStep)
 {
-	pData = new PTTabRecord[size];
-	for (int i = 0; i < size; i++)
+	pData = new PTTabRecord[tabSize];
+	for (int i = 0; i < tabSize; i++)
 	{
 		pData[i] = nullptr;
 	}
@@ -54,7 +54,7 @@ PTDatValue TArrayHashTable::FindRecord(TKey key)
 
 bool TArrayHashTable::InsertRecord(TKey key, PTDatValue value)
 {
-	if (IsFull())
+	if (isFull())
 	{
 		SetRetCode(TAB_FULL);
 	}

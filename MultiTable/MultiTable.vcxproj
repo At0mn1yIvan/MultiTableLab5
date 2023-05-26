@@ -136,10 +136,12 @@
     <ClInclude Include="TDatValue.h" />
     <ClInclude Include="THashTable.h" />
     <ClInclude Include="TListHashTable.h" />
+    <ClInclude Include="TreeNode.h" />
     <ClInclude Include="TScanTable.h" />
     <ClInclude Include="TSortTable.h" />
     <ClInclude Include="TTable.h" />
     <ClInclude Include="TTabRecord.h" />
+    <ClInclude Include="TTreeTable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -149,8 +151,10 @@
     <ClCompile Include="TArrayTable.cpp" />
     <ClCompile Include="THashTable.cpp" />
     <ClCompile Include="TListHashTable.cpp" />
+    <ClCompile Include="TreeNode.cpp" />
     <ClCompile Include="TScanTable.cpp" />
     <ClCompile Include="TSortTable.cpp" />
+    <ClCompile Include="TTreeTable.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

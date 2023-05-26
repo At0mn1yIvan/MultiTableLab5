@@ -15,7 +15,7 @@ public:
 	TListHashTable(size_t size = 50);
 	virtual ~TListHashTable();
 
-	virtual bool IsFull() const
+	virtual bool isFull() const
 	{
 		return pList == nullptr;
 	}

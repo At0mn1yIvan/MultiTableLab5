@@ -60,6 +60,35 @@ public:
 		}
 	}
 
+
+	double FindAllWords()
+	{
+		std::ifstream fin;
+		fin.open("Table.txt");
+		std::vector<TKey> allWords;
+		double allTime = 0;
+		time_t start, end;
+		while (!fin.eof()) {
+			TKey key;
+			fin >> key;
+			if (key == "") break;
+			size_t prop[5];
+			for (int i = 0; i < 5; i++) {
+				fin >> prop[i];
+			}
+			allWords.push_back(key);
+		}
+		for (auto word = allWords.begin(); word != allWords.end(); word++)
+		{ 
+			start = clock();
+			_table->FindRecord(*word);
+			end = clock();
+			allTime += (double)(end - start) / CLOCKS_PER_SEC;
+		}
+		return allTime;
+	}
+
+
 	// Вариант 1
 	void TableInsert()
 	{
@@ -71,7 +100,7 @@ public:
 		bool newInVect = true;
 		//_fin.open(_path);
 		//while (!_fin.eof()) 
-		for (int i = 0; i < 50000; i++)
+		for (int i = 0; i < 10000; i++)
 		{
 			int a1 = 0;
 			int a2 = 0;
