@@ -15,7 +15,7 @@ protected:
 			hv += (int)key[i];
 		}
 		//return (hv % 100 < 0 ? hv % 100 : hv); // 145 секунд
-		return (hv / -100 > 0 ? hv % 100 / -10 - hv % 10 : hv / -10 - hv % 10);
+		return (hv / -100 > 0 ? hv % 100 / -10 - hv % 10 : hv / -10 - hv % 10); // 464 секунды
 		//return std::hash<TKey>()(key);
 	}
 public:
