@@ -190,16 +190,21 @@ int main() {
 	
 
 	// для хэш-функций 
-	TSortTable SortTable = TSortTable(70000);
+	//TSortTable SortTable = TSortTable(70000); 1.029 сек.
 	TListHashTable tlh = TListHashTable(70000);
 	TArrayHashTable tah = TArrayHashTable(70000);
-	Parser p1(&SortTable);
+	//Parser p1(&SortTable);
 	Parser p2(&tlh);
 	Parser p3(&tah);
-	p1.FillTable();
+	//p1.FillTable();
 	p2.FillTable();
 	p3.FillTable();
-	std::cout << "SortTable time to find every word: " << p1.FindAllWords() << " seconds" << std::endl;
+	/*std::string str = "Прокрастинация";
+	int cu = 0;
+	for (int i = 0; i < str.size(); i++)
+		cu += (int)str[i];*/
+	//std::cout << (cu / -100 > 0 ? cu % 100 - 10 : cu + 10);
+	//std::cout << "SortTable time to find every word: " << p1.FindAllWords() << " seconds" << std::endl;
 	std::cout << "List Hash table time to find every word: " << p2.FindAllWords() << " seconds" << std::endl;
 	std::cout << "Array Hash table time to find every word: " << p3.FindAllWords() << " seconds" << std::endl;
 	return 0;
